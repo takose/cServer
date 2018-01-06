@@ -51,9 +51,6 @@ app.use((err, req, res, next) => {
 
 io.on('connection', (socket) => {
   connectionManager.addConnection(socket)
-  socket.on('disconnect', () => {
-    connectionManager.removeConnection(socket)
-  });
 });
 
 http.listen(3000, function(){
