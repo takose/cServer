@@ -8,7 +8,10 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-var app = express();
+const app = express();
+
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,4 +46,10 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-module.exports = app;
+io.on('connection', (socket) => {
+  console.log('a user connected')
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000')
+});
