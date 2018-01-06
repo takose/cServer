@@ -13,7 +13,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const ConnectionManager = require('./lib/connectionManager')
+const ConnectionManager = require('./lib/ConnectionManager')
 const connectionManager = new ConnectionManager()
 
 // view engine setup
