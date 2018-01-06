@@ -13,6 +13,9 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
+const ConnectionManager = require('./lib/connectionManager')
+const connectionManager = new ConnectionManager()
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -47,7 +50,10 @@ app.use((err, req, res, next) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected')
+  connectionManager.addConnection(socket)
+  socket.on('disconnect', () => {
+    connectionManager.removeConnection(socket)
+  });
 });
 
 http.listen(3000, function(){
