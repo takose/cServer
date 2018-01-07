@@ -11,7 +11,7 @@
     <p>Welcome to <%= title %></p>
     <script>
       $(() => {
-        var socket = io({
+        const socket = io({
           query: {
             type: 'user'
           }
