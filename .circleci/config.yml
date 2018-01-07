@@ -39,7 +39,7 @@ jobs:
       - run:
           command: |
             mkdir -p ~/reports
-            yarn eslint ./src/ --format junit --output-file ~/reports/eslint.xml
+            yarn lint --format junit --output-file ~/reports/eslint.xml
           when: always
       - store_test_results:
           path: ~/reports
