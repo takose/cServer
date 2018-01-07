@@ -1,0 +1,6 @@
+plugins: ['jest']
+env:
+  node: true
+extends:
+- airbnb-base
+- plugin:jest/recommended
