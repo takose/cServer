@@ -14,7 +14,9 @@ class ConnectionManager {
     const { query } = socket.handshake;
     switch (query.type) {
       case USER: {
-        const userConn = new UserConnection(socket, { onDestroy: c => this.removeConnection(c) });
+        const userConn = new UserConnection(socket, {
+          onDestroy: c => this.removeConnection(c),
+        });
         this.userConnections.set(userConn.getId(), userConn);
         break;
       }
