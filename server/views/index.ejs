@@ -5,18 +5,12 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/javascripts/index.js"></script>
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <script>
-      $(() => {
-        const socket = io({
-          query: {
-            type: 'user'
-          }
-        });
-      })
-    </script>
+    <div class="ff_power">...</div>
+    <button id='2'>2</button>
   </body>
 </html>
