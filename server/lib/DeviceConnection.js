@@ -12,6 +12,15 @@ class DeviceConnection extends Connection {
       });
     });
   }
+
+  updateState(states) {
+    this.socket.emit('devices/state:update', states);
+    return new Promise((resolve) => {
+      this.socket.on('devices/state:update/return', () => {
+        resolve();
+      });
+    });
+  }
 }
 
 module.exports = DeviceConnection;

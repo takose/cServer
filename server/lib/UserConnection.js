@@ -17,6 +17,15 @@ class UserConnection extends Connection {
         });
       }
     });
+
+    this.socket.on('users/state:update', (data) => {
+      const { onUpdateStates } = options;
+      if (onUpdateStates != null) {
+        onUpdateStates(data).then(() => {
+          this.socket.emit('users/state:update/return');
+        });
+      }
+    });
   }
 }
 
