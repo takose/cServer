@@ -16,6 +16,7 @@ class ConnectionManager {
       case USER: {
         const userConn = new UserConnection(socket, {
           onDestroy: c => this.removeConnection(c),
+          onFetchStates: id => this.onFetchStates(id),
         });
         this.userConnections.set(userConn.getId(), userConn);
         break;
@@ -32,6 +33,10 @@ class ConnectionManager {
     }
   }
 
+  onFetchStates(deviceId) {
+    const deviceConnection = this.deviceConnections.get(deviceId);
+    return deviceConnection.fetchState();
+  }
   removeConnection(conn) {
     if (conn instanceof UserConnection) {
       this.userConnections.delete(conn.getId());
