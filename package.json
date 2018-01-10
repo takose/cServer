@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "server": "node ./server/app.js",
+    "ff": "node ./devices/app.js",
     "test": "jest",
     "lint": "eslint ."
   },
