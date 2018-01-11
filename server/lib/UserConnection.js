@@ -9,6 +9,7 @@ class UserConnection extends Connection {
     return this.getSocket().id;
   }
   init(options) {
+    super.init(options);
     this.socket.on('users/state:fetch', (deviceId) => {
       const { onFetchStates } = options;
       if (onFetchStates != null) {
