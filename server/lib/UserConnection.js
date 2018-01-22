@@ -5,9 +5,11 @@ class UserConnection extends Connection {
     super(socket, options);
     this.init(options);
   }
+
   getId() {
     return this.getSocket().id;
   }
+
   init(options) {
     super.init(options);
     this.socket.on('users/state:fetch', (deviceId) => {

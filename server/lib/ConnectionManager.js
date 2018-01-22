@@ -39,9 +39,9 @@ class ConnectionManager {
     return deviceConnection.fetchState();
   }
 
-  onUpdateStates(data) {
-    const deviceConnection = this.deviceConnections.get(data.deviceId);
-    return deviceConnection.updateState(data.states);
+  onUpdateStates({ deviceId, states }) {
+    const deviceConnection = this.deviceConnections.get(deviceId);
+    return deviceConnection.updateState(states);
   }
 
   removeConnection(conn) {
