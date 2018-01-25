@@ -1,4 +1,5 @@
 const Connection = require('./Connection');
+const deviceEvents = require('../../common/events/devices');
 
 class DeviceConnection extends Connection {
   getId() {
@@ -6,16 +7,16 @@ class DeviceConnection extends Connection {
   }
 
   fetchState() {
-    this.socket.emit('devices/state:fetch');
+    this.socket.emit(deviceEvents.fetchState);
     return new Promise((resolve) => {
-      this.socket.on('devices/state:fetch/return', resolve);
+      this.socket.on(deviceEvents.fetchStateReturn, resolve);
     });
   }
 
   updateState(states) {
-    this.socket.emit('devices/state:update', states);
+    this.socket.emit(deviceEvents.updateState, states);
     return new Promise((resolve) => {
-      this.socket.on('devices/state:update/return', () => {
+      this.socket.on(deviceEvents.updateStateReturn, () => {
         resolve();
       });
     });
