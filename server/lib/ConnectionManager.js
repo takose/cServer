@@ -14,7 +14,11 @@ class ConnectionManager {
     const { query } = socket.handshake;
     switch (query.type) {
       case USER: {
-        const userConn = new UserConnection(socket, { onDestroy: c => this.removeConnection(c) });
+        const userConn = new UserConnection(socket, {
+          onDestroy: c => this.removeConnection(c),
+          onFetchStates: id => this.onFetchStates(id),
+          onUpdateStates: data => this.onUpdateStates(data),
+        });
         this.userConnections.set(userConn.getId(), userConn);
         break;
       }
@@ -28,6 +32,16 @@ class ConnectionManager {
       default:
         throw new Error(`Unexpected query ${JSON.stringify(query)}`);
     }
+  }
+
+  onFetchStates(deviceId) {
+    const deviceConnection = this.deviceConnections.get(deviceId);
+    return deviceConnection.fetchState();
+  }
+
+  onUpdateStates({ deviceId, states }) {
+    const deviceConnection = this.deviceConnections.get(deviceId);
+    return deviceConnection.updateState(states);
   }
 
   removeConnection(conn) {
