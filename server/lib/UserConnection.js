@@ -14,7 +14,7 @@ class UserConnection extends Connection {
     super.init(options);
     this.socket.on('users/state:fetch', (deviceId) => {
       const { onFetchStates } = options;
-      if (onFetchStates != null) {
+      if (onFetchStates !== null) {
         onFetchStates(deviceId).then((state) => {
           this.socket.emit('users/state:fetch/return', state);
         });
@@ -23,11 +23,19 @@ class UserConnection extends Connection {
 
     this.socket.on('users/state:update', (data) => {
       const { onUpdateStates } = options;
-      if (onUpdateStates != null) {
-        onUpdateStates(data).then(() => {
-          this.socket.emit('users/state:update/return');
-        });
+      if (onUpdateStates !== null) {
+        onUpdateStates(data);
+        // onUpdateStates(data).then(() => {
+        //   this.socket.emit('users/state:update/return');
+        // });
       }
+    });
+  }
+
+  notifyDone(deviceId) {
+    this.socket.emit(`users/${deviceId}/done`);
+    return new Promise((resolve) => {
+      this.socket.on(`users/${deviceId}/done/return`, resolve);
     });
   }
 }

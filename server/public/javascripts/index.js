@@ -13,6 +13,7 @@ $(() => {
       deviceId: 'ff',
       states: {
         power: 2,
+        time: 2,
       },
     };
     socket.emit('users/state:update', device);
