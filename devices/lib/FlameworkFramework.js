@@ -12,8 +12,16 @@ class FlameworkFramework extends Device {
     this.init();
   }
   init() {
-    this.port = new SerialPort('/dev/tty.lpss-serial2', {
+    this.port = new SerialPort('/dev/tty.usbserial-DJ002JFQ', {
       baudRate: 57600,
+    });
+
+    this.port.write('R\n', (err) => {
+      if (err) {
+        console.log('Error on write: ', err.message);
+      } else {
+        console.log('serial init');
+      }
     });
 
     this.port.on('error', (err) => {
@@ -71,9 +79,11 @@ class FlameworkFramework extends Device {
     } else if (val === 6) {
       power = 256;
     }
-    this.port.write(`${power}\n`, (err) => {
+    this.port.write(`s${power}\n`, (err) => {
       if (err) {
         console.log('Error on write: ', err.message);
+      } else {
+        console.log('send successed');
       }
     });
   }
@@ -91,7 +101,7 @@ class FlameworkFramework extends Device {
         //   console.log('notified Done');
         // });
       }
-    }, 1000);
+    }, 1000 * 60);
   }
 }
 
