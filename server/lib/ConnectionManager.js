@@ -46,9 +46,11 @@ class ConnectionManager {
   }
 
   notifyDone(deviceId) {
-    this.userConnections.forEach(userConnection => (
-      userConnection.notifyDone(deviceId)
-    ));
+    const userConnRes = [];
+    this.userConnections.forEach((userConnection) => {
+      userConnRes.push(userConnection.notifyDone(deviceId));
+    });
+    return Promise.all(userConnRes);
   }
 
   removeConnection(conn) {

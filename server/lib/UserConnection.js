@@ -3,7 +3,6 @@ const Connection = require('./Connection');
 class UserConnection extends Connection {
   constructor(socket, options = {}) {
     super(socket, options);
-    this.init(options);
   }
 
   getId() {
@@ -24,10 +23,9 @@ class UserConnection extends Connection {
     this.socket.on('users/state:update', (data) => {
       const { onUpdateStates } = options;
       if (onUpdateStates !== null) {
-        onUpdateStates(data);
-        // onUpdateStates(data).then(() => {
-        //   this.socket.emit('users/state:update/return');
-        // });
+        onUpdateStates(data).then(() => {
+          this.socket.emit('users/state:update/return');
+        });
       }
     });
   }

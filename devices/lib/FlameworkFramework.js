@@ -9,28 +9,10 @@ class FlameworkFramework extends Device {
       power: 0,
       time: 0,
     };
-    this.init();
   }
+
   init() {
-    this.port = new SerialPort('/dev/tty.usbserial-DJ002JFQ', {
-      baudRate: 57600,
-    });
-
-    this.port.write('R\n', (err) => {
-      if (err) {
-        console.log('Error on write: ', err.message);
-      } else {
-        console.log('serial init');
-      }
-    });
-
-    this.port.on('error', (err) => {
-      console.log('Error: ', err.message);
-    });
-
-    this.port.on('data', (data) => {
-      console.log('Data:', data);
-    });
+    this.serialInit();
 
     this.socket.on('devices/state:fetch', () => {
       this.socket.emit('devices/state:fetch/return', this.state);
@@ -57,6 +39,28 @@ class FlameworkFramework extends Device {
         }
       });
       this.socket.emit('devices/state:update/return');
+    });
+  }
+
+  serialInit() {
+    this.port = new SerialPort('/dev/tty.usbserial-DJ002JFQ', {
+      baudRate: 57600,
+    });
+
+    this.port.write('R\n', (err) => {
+      if (err) {
+        console.log('Error on write: ', err.message);
+      } else {
+        console.log('serial init');
+      }
+    });
+
+    this.port.on('error', (err) => {
+      console.log('Error: ', err.message);
+    });
+
+    this.port.on('data', (data) => {
+      console.log('Data:', data);
     });
   }
 
@@ -97,9 +101,9 @@ class FlameworkFramework extends Device {
       if (this.state.time <= 0) {
         clearInterval(count);
         this.socket.emit('devices/command:done');
-        // this.socket.on('devices/command:done/return', () => {
-        //   console.log('notified Done');
-        // });
+        this.socket.on('devices/command:done/return', () => {
+          console.log('notified Done');
+        });
       }
     }, 1000 * 60);
   }

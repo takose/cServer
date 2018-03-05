@@ -4,7 +4,6 @@ const deviceEvents = require('../../common/events/devices');
 class DeviceConnection extends Connection {
   constructor(socket, options = {}) {
     super(socket, options);
-    // this.init(options);
   }
 
   getId() {
@@ -18,7 +17,6 @@ class DeviceConnection extends Connection {
       if (notifyDone !== null) {
         const result = notifyDone(this.getId());
         if (result !== undefined) {
-          // TODO result に Promise がはいらない
           result.then(() => {
             this.socket.emit('devices/command:done/return');
           });
