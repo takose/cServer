@@ -33,7 +33,7 @@ class UserConnection extends Connection {
   notifyDone(deviceId) {
     this.socket.emit(`users/${deviceId}/done`);
     return new Promise((resolve) => {
-      this.socket.on(`users/${deviceId}/done/return`, resolve);
+      this.socket.once(`users/${deviceId}/done/return`, resolve);
     });
   }
 }

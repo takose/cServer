@@ -18,9 +18,6 @@ class FlameworkFramework extends Device {
       this.socket.emit('devices/state:fetch/return', this.state);
     });
     this.socket.on('devices/state:update', (state) => {
-      if (state.time === this.state.time && state.power === this.state.power) {
-        return;
-      }
       Object.entries(state).forEach(([k, v]) => {
         switch (k) {
           case 'power': {
@@ -101,7 +98,7 @@ class FlameworkFramework extends Device {
       if (this.state.time <= 0) {
         clearInterval(count);
         this.socket.emit('devices/command:done');
-        this.socket.on('devices/command:done/return', () => {
+        this.socket.once('devices/command:done/return', () => {
           console.log('notified Done');
         });
       }
