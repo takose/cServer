@@ -5,7 +5,7 @@ const FlameworkFramework = require('./lib/FlameworkFramework');
 const app = express();
 const FF = 'ff';
 
-const socket = io('http://localhost:3000', {
+const socket = io('http://192.168.100.72:3000', {
   query: {
     type: 'device',
     deviceId: FF,

@@ -40,7 +40,7 @@ class FlameworkFramework extends Device {
   }
 
   serialInit() {
-    this.port = new SerialPort('/dev/tty.usbserial-DJ002JFQ', {
+    this.port = new SerialPort('/dev/ttyACM0', {
       baudRate: 57600,
     });
 
