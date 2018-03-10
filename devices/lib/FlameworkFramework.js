@@ -40,7 +40,7 @@ class FlameworkFramework extends Device {
   }
 
   serialInit() {
-    this.port = new SerialPort('/dev/ttyACM0', {
+    this.port = new SerialPort(process.env.SERIAL_PORT, {
       baudRate: 57600,
     });
 
@@ -102,7 +102,7 @@ class FlameworkFramework extends Device {
           console.log('notified Done');
         });
       }
-    }, 1000 * 60);
+    }, 1000);
   }
 }
 

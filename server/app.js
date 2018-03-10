@@ -4,6 +4,7 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 
 const index = require('./routes/index');
 
@@ -15,6 +16,8 @@ const io = require('socket.io')(http);
 const ConnectionManager = require('./lib/ConnectionManager');
 
 const connectionManager = new ConnectionManager();
+
+dotenv.config();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
