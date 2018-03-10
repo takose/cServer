@@ -13,7 +13,10 @@ class FlameworkFramework extends Device {
 
   init() {
     this.serialInit();
+    this.socketInit();
+  }
 
+  socketInit() {
     this.socket.on('devices/state:fetch', () => {
       this.socket.emit('devices/state:fetch/return', this.state);
     });
@@ -25,9 +28,6 @@ class FlameworkFramework extends Device {
             break;
           }
           case 'time': {
-            if (this.state.time !== 0) {
-              this.state.time = 0;
-            }
             this.measureTime(v);
             break;
           }
@@ -90,6 +90,9 @@ class FlameworkFramework extends Device {
   }
 
   measureTime(val) {
+    if (this.state.time !== 0) {
+      this.state.time = 0;
+    }
     this.state.time = val;
 
     const count = setInterval(() => {

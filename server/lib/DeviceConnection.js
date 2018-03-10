@@ -14,14 +14,10 @@ class DeviceConnection extends Connection {
     super.init(options);
     this.socket.on('devices/command:done', () => {
       const { notifyDone } = options;
-      if (notifyDone !== null) {
-        const result = notifyDone(this.getId());
-        if (result !== undefined) {
-          result.then(() => {
-            this.socket.emit('devices/command:done/return');
-          });
-        }
-      }
+      const result = notifyDone(this.getId());
+      result.then(() => {
+        this.socket.emit('devices/command:done/return');
+      });
     });
   }
 
