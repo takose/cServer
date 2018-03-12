@@ -4,8 +4,10 @@ const FlameworkFramework = require('./lib/FlameworkFramework');
 
 const app = express();
 const FF = 'ff';
+const dotenv = require('dotenv');
 
-const socket = io('http://localhost:3000', {
+dotenv.config();
+const socket = io(process.env.HOST, {
   query: {
     type: 'device',
     deviceId: FF,

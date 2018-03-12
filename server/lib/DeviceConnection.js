@@ -2,8 +2,23 @@ const Connection = require('./Connection');
 const deviceEvents = require('../../common/events/devices');
 
 class DeviceConnection extends Connection {
+  constructor(socket, options = {}) {
+    super(socket, options);
+  }
+
   getId() {
     return this.getSocket().handshake.query.deviceId;
+  }
+
+  init(options) {
+    super.init(options);
+    this.socket.on('devices/command:done', () => {
+      const { notifyDone } = options;
+      const result = notifyDone(this.getId());
+      result.then(() => {
+        this.socket.emit('devices/command:done/return');
+      });
+    });
   }
 
   fetchState() {
@@ -16,7 +31,7 @@ class DeviceConnection extends Connection {
   updateState(states) {
     this.socket.emit(deviceEvents.updateState, states);
     return new Promise((resolve) => {
-      this.socket.on(deviceEvents.updateStateReturn, () => {
+      this.socket.once(deviceEvents.updateStateReturn, () => {
         resolve();
       });
     });
