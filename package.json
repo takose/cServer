@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "server": "node ./server/app.js",
-    "ff": "node ./devices/app.js",
+    "ff": "node ./devices/ff/app.js",
+    "integlass": "node ./devices/integlass/app.js",
+    "smoon": "node ./devices/smoon/app.js",
+    "puta": "node ./devices/puta/app.js",
     "test": "jest",
     "lint": "eslint ."
   },

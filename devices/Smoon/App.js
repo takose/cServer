@@ -1,19 +1,19 @@
 const express = require('express');
 const io = require('socket.io-client');
-const FlameworkFramework = require('./lib/FlameworkFramework');
+const Smoon = require('../lib/Smoon');
 
 const app = express();
-const FF = 'ff';
+const id = 'smoon';
 const dotenv = require('dotenv');
 
 dotenv.config();
 const socket = io(process.env.HOST, {
   query: {
     type: 'device',
-    deviceId: FF,
+    deviceId: id,
   },
 });
-const ff = new FlameworkFramework(socket);
-ff.init();
+const smoon = new Smoon(socket);
+smoon.init();
 
-app.listen(3001);
+app.listen(3002);

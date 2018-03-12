@@ -46,7 +46,7 @@ class FlameworkFramework extends Device {
   }
 
   serialInit() {
-    this.port = new SerialPort(process.env.SERIAL_PORT, {
+    this.port = new SerialPort(process.env.SERIAL_PORT_FF, {
       baudRate: 57600,
     });
 
