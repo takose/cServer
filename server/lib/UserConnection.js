@@ -20,8 +20,16 @@ class UserConnection extends Connection {
 
     this.socket.on('users/state:update', (data) => {
       const { onUpdateStates } = options;
-      onUpdateStates(data).then(() => {
-        this.socket.emit('users/state:update/return');
+      onUpdateStates(data).then((error) => {
+        if (error != undefined) {
+          console.log(error);
+          this.socket.emit(`users/${data.deviceId}/done/failed`);
+        } else {
+          if (data.deviceId !== 'ff') {
+            this.socket.emit(`users/${data.deviceId}/done`);
+          }
+          this.socket.emit('users/state:update/return');
+        }
       });
     });
   }
