@@ -42,6 +42,9 @@ class ConnectionManager {
 
   onUpdateStates({ deviceId, states }) {
     const deviceConnection = this.deviceConnections.get(deviceId);
+    if (deviceConnection == undefined) {
+      return Promise.resolve(null);
+    }
     return deviceConnection.updateState(states);
   }
 

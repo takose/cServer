@@ -36,6 +36,12 @@ class FlameworkFramework extends Device {
         }
       });
       this.socket.emit('devices/state:update/return');
+      if (state.time == undefined) {
+        this.socket.emit('devices/command:done');
+        this.socket.once('devices/command:done/return', () => {
+          console.log('notified Done');
+        });
+      }
     });
   }
 
