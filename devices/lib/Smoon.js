@@ -1,4 +1,4 @@
-const SerialPort = require('serialport');
+const net = require('net');
 
 const Device = require('./Device');
 
@@ -17,7 +17,7 @@ class Smoon extends Device {
 
   socketInit() {
     this.socket.on('devices/state:fetch', () => {
-      this.socket.emit('devices/state:fetch/return', this.state);
+      console.log('fetch data is not supported..');
     });
     this.socket.on('devices/state:update', (state) => {
       this.setAmount(state.amount);
@@ -27,35 +27,25 @@ class Smoon extends Device {
   }
 
   serialInit() {
-    this.port = new SerialPort(process.env.SERIAL_PORT_SMOON, {
-      baudRate: 57600,
+    this.client = new net.Socket();
+
+    this.client.connect(process.env.SMOON_PORT, process.env.SMOON_HOST, () => {
+      console.log(`CONNECTED TO: ${process.env.SMOON_HOST}: ${process.env.SMOON_PORT}`);
+      this.client.write('\r\n');
     });
 
-    this.port.write('R\n', (err) => {
-      if (err) {
-        console.log('Error on write: ', err.message);
-      } else {
-        console.log('serial init');
-      }
+    this.client.on('data', (data) => {
+      console.log(`Received > ${data}`);
     });
 
-    this.port.on('error', (err) => {
-      console.log('Error: ', err.message);
-    });
-
-    this.port.on('data', (data) => {
-      console.log('Data:', data);
+    this.client.on('close', () => {
+      console.log('> connection is closed');
     });
   }
 
   setAmount(val) {
-    this.port.write(`s${val}\n`, (err) => {
-      if (err) {
-        console.log('Error on write: ', err.message);
-      } else {
-        console.log('send successed');
-      }
-    });
+    console.log('enter', val)
+    this.client.write((`volume ${val}\r\n`).toString());
   }
 }
 
