@@ -20,6 +20,7 @@ class UserConnection extends Connection {
 
     this.socket.on('users/state:update', (data) => {
       const { onUpdateStates } = options;
+      console.log(`received ${JSON.stringify(data)}`);
       onUpdateStates(data).then((error) => {
         if (error != undefined) {
           console.log(error);

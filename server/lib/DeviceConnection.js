@@ -29,6 +29,7 @@ class DeviceConnection extends Connection {
   }
 
   updateState(states) {
+    console.log(`send ${JSON.stringify(states)} to ${this.getId()}`);
     this.socket.emit(deviceEvents.updateState, states);
     return new Promise((resolve) => {
       this.socket.once(deviceEvents.updateStateReturn, () => {

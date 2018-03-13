@@ -12,6 +12,7 @@ class ConnectionManager {
 
   addConnection(socket) {
     const { query } = socket.handshake;
+    console.log(JSON.stringify(query))
     switch (query.type) {
       case USER: {
         const userConn = new UserConnection(socket, {
