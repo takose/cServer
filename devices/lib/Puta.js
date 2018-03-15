@@ -6,7 +6,7 @@ class Puta extends Device {
   constructor(socket) {
     super(socket);
     this.state = {
-      amount: 0,
+      podId: 'A',
     };
   }
 
@@ -20,7 +20,7 @@ class Puta extends Device {
       this.socket.emit('devices/state:fetch/return', this.state);
     });
     this.socket.on('devices/state:update', (state) => {
-      this.setAmount(state.amount);
+      this.movePod(state.pod);
       // this.socket.emit('devices/state:update/return');
       this.socket.emit('devices/command:done');
     });
@@ -48,12 +48,12 @@ class Puta extends Device {
     });
   }
 
-  setAmount(val) {
-    this.port.write(`s${val}\n`, (err) => {
+  movePod(podId) {
+    this.port.write(`${podId}\n`, (err) => {
       if (err) {
         console.log('Error on write: ', err.message);
       } else {
-        console.log('send successed');
+        console.log('move successed');
       }
     });
   }
