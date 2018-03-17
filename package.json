@@ -8,6 +8,7 @@
     "integlass": "node ./devices/Integlass/App.js",
     "smoon": "node ./devices/Smoon/App.js",
     "puta": "node ./devices/Puta/App.js",
+    "webChoco": "node ./devices/WebChoco/App.js",
     "test": "jest",
     "lint": "eslint ."
   },
