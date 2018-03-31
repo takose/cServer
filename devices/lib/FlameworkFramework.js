@@ -36,11 +36,18 @@ class FlameworkFramework extends Device {
         }
       });
       this.socket.emit('devices/state:update/return');
+      // eslint-disable-next-line eqeqeq
+      if (state.time == undefined) {
+        this.socket.emit('devices/command:done');
+        this.socket.once('devices/command:done/return', () => {
+          console.log('notified Done');
+        });
+      }
     });
   }
 
   serialInit() {
-    this.port = new SerialPort(process.env.SERIAL_PORT, {
+    this.port = new SerialPort(process.env.SERIAL_PORT_FF, {
       baudRate: 57600,
     });
 

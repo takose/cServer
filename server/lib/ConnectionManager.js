@@ -42,6 +42,10 @@ class ConnectionManager {
 
   onUpdateStates({ deviceId, states }) {
     const deviceConnection = this.deviceConnections.get(deviceId);
+    // eslint-disable-next-line eqeqeq
+    if (deviceConnection == undefined) {
+      return Promise.resolve('device not found');
+    }
     return deviceConnection.updateState(states);
   }
 

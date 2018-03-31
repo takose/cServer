@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "server": "node ./server/app.js",
-    "ff": "node ./devices/app.js",
+    "ff": "node ./devices/FF/App.js",
+    "integlass": "node ./devices/Integlass/App.js",
+    "smoon": "node ./devices/Smoon/App.js",
+    "puta": "node ./devices/Puta/App.js",
+    "webChoco": "node ./devices/WebChoco/App.js",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -16,6 +20,7 @@
     "ejs": "~2.5.7",
     "express": "~4.15.5",
     "morgan": "~1.9.0",
+    "net": "^1.0.2",
     "p-iteration": "^1.1.5",
     "serialport": "^6.1.1",
     "serve-favicon": "~2.4.5",
