@@ -111,7 +111,7 @@ class FlameworkFramework extends Device {
           console.log('notified Done');
         });
       }
-    }, 1000);
+    }, 1000 * 60);
   }
 }
 

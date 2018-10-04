@@ -28,7 +28,7 @@ class Puta extends Device {
 
   serialInit() {
     this.port = new SerialPort(process.env.SERIAL_PORT_PUTA, {
-      baudRate: 57600,
+      baudRate: 115200,
     });
 
     this.port.write('R\n', (err) => {
@@ -49,7 +49,7 @@ class Puta extends Device {
   }
 
   movePod(podId) {
-    this.port.write(`${podId}\n`, (err) => {
+    this.port.write(`${podId}`, (err) => {
       if (err) {
         console.log('Error on write: ', err.message);
       } else {
