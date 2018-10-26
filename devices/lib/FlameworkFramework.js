@@ -36,6 +36,7 @@ class FlameworkFramework extends Device {
         }
       });
       this.socket.emit('devices/state:update/return');
+      // eslint-disable-next-line eqeqeq
       if (state.time == undefined) {
         this.socket.emit('devices/command:done');
         this.socket.once('devices/command:done/return', () => {

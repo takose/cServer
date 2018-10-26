@@ -44,9 +44,7 @@ class Smoon extends Device {
   }
 
   setAmount(val) {
-    console.log('enter', val)
-    const written = this.client.write((`volume ${val}\r\n`).toString());
-    console.log(written)
+    this.client.write((`volume ${val}\r\n`).toString());
   }
 }
 

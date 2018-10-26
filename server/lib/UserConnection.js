@@ -22,6 +22,7 @@ class UserConnection extends Connection {
       const { onUpdateStates } = options;
       console.log(`received ${JSON.stringify(data)}`);
       onUpdateStates(data).then((error) => {
+        // eslint-disable-next-line eqeqeq
         if (error != undefined) {
           console.log(error);
           this.socket.emit(`users/${data.deviceId}/done/failed`);
