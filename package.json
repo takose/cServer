@@ -24,7 +24,7 @@
     "serialport": "^6.1.1",
     "serve-favicon": "~2.4.5",
     "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4"
+    "socket.io-client": "^1.4.32"
   },
   "devDependencies": {
     "eslint": "^4.15.0",

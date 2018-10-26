@@ -7,7 +7,8 @@ const FF = 'ff';
 const dotenv = require('dotenv');
 
 dotenv.config();
-const socket = io(process.env.HOST, {
+const socket = io.connect(process.env.HOST, {
+  secure: true,
   query: {
     type: 'device',
     deviceId: FF,

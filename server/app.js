@@ -1,4 +1,7 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
+
 const path = require('path');
 // const favicon = require('serve-favicon');
 const logger = require('morgan');
@@ -10,8 +13,7 @@ const index = require('./routes/index');
 
 const app = express();
 
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(https);
 
 const ConnectionManager = require('./lib/ConnectionManager');
 
@@ -29,7 +31,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+const headerOptions = {
+  setHeaders: function (res, path, stat) {
+    res.set('Access-Control-Allow-Origin', '*')
+  }
+}
+app.use(express.static(path.join(__dirname, 'public'), headerOptions));
 
 app.use('/', index);
 
@@ -55,4 +63,15 @@ io.on('connection', (socket) => {
   connectionManager.addConnection(socket);
 });
 
-http.listen(3000);
+const options = {
+	key: fs.readFileSync('/etc/apache2/ssl/server.key'),
+	cert: fs.readFileSync('/etc/apache2/ssl/server.crt'),
+	passphrase: 'raspberry',
+	requestCert: false,
+	rejectUnauthorized: false
+};
+
+const server = https.createServer(options, app);
+
+io.listen(server);
+server.listen(3000);
