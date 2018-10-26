@@ -2,7 +2,7 @@ const SerialPort = require('serialport');
 
 const Device = require('./Device');
 
-class FlameworkFramework extends Device {
+class FlameworkFramework1 extends Device {
   constructor(socket) {
     super(socket);
     this.state = {
@@ -47,7 +47,7 @@ class FlameworkFramework extends Device {
   }
 
   serialInit() {
-    this.port = new SerialPort(process.env.SERIAL_PORT_FF, {
+    this.port = new SerialPort(process.env.SERIAL_PORT_FF_1, {
       baudRate: 57600,
     });
 
@@ -116,4 +116,4 @@ class FlameworkFramework extends Device {
   }
 }
 
-module.exports = FlameworkFramework;
+module.exports = FlameworkFramework1;

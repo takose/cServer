@@ -10,11 +10,12 @@ $ npm run <device id>
 |number|service(device id)|
 | --- | --- |
 | 3000 | server |
-| 3001 | ff |
+| 3001 | ff1 |
 | 3002 | Smoon |
 | 3003 | Integlass |
 | 3004 | Puta |
 | 3005 | WebChoco |
+| 3006 | ff2 |
 
 デバイスを追加したらここも更新
 

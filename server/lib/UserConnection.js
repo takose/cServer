@@ -27,7 +27,7 @@ class UserConnection extends Connection {
           console.log(error);
           this.socket.emit(`users/${data.deviceId}/done/failed`);
         } else {
-          if (data.deviceId !== 'ff') {
+          if (data.deviceId !== 'ff1' && data.deviceId !== 'ff2') {
             this.socket.emit(`users/${data.deviceId}/done`);
           }
           this.socket.emit('users/state:update/return');

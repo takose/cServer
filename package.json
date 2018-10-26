@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "server": "node ./server/app.js",
-    "ff": "node ./devices/FF/App.js",
+    "ff1": "node ./devices/FF1/App.js",
+    "ff2": "node ./devices/FF2/App.js",
     "integlass": "node ./devices/Integlass/App.js",
     "smoon": "node ./devices/Smoon/App.js",
     "puta": "node ./devices/Puta/App.js",
