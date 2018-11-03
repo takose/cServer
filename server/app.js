@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 
 const index = require('./routes/index');
+const taste = require('./routes/taste');
 
 const app = express();
 
@@ -37,9 +38,17 @@ const headerOptions = {
     res.set('Access-Control-Allow-Origin', '*')
   }
 }
-app.use(express.static(path.join(__dirname, 'public'), headerOptions));
+// app.use(express.static(path.join(__dirname, 'public'), headerOptions));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use('/', index);
+app.use('/taste', taste);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
